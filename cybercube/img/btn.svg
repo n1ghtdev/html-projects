@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="254px" height="68px">
+            <defs>
+              <linearGradient id="btn-svg-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+                <stop offset="0%" stop-color="rgb(255,0,0)" stop-opacity="1" />
+                <stop offset="100%" stop-color="rgb(255,114,0)" stop-opacity="1" />
+              </linearGradient>
+            </defs>
+            <path stroke="rgba(255, 255, 255, 0.2)" stroke-width="2px" stroke-linecap="butt" stroke-linejoin="miter" fill="transparent" d="M1.000,0.999 L226.474,0.999 L252.000,21.744 L252.000,65.999 L1.000,65.999" />
+            <path class="btn-svg" d="M1.000,0.999 L226.474,0.999 L252.000,21.744 L252.000,65.999 L1.000,65.999" />
+          </svg>

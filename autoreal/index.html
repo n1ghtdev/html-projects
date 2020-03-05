@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>АвтоРеальность</title>
+  <meta name="description" content="">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Template Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="img/favicon/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/favicon.png">
+  <!-- Template Basic Images End -->
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#000">
+  <!-- Custom Browsers Color End -->
+  <link rel="stylesheet" href="css/main.min.css">
+</head>
+
+<body>
+  <div id="page-wrap">
+    <header class="header">
+      <div class="container">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <button class="header__bars">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <nav class="header__nav d-lg-none">
+              <ul>
+                <li><a href="#">Запчасти</a></li>
+                <li><a href="#">Гарантия</a></li>
+                <li><a href="#">Доставка и оплата</a></li>
+                <li><a href="#">конакты</a></li>
+              </ul>
+            </nav>
+            <a href="/" class="header__logo">
+              <img src="img/logo-white.png" alt="" height="60">
+              <p>Запчасти <br>для грузовых <br>автомобилей</p>
+            </a>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <nav class="header__nav">
+              <ul>
+                <li><a href="#">Запчасти</a></li>
+                <li><a href="#">Гарантия</a></li>
+                <li><a href="#">Доставка и оплата</a></li>
+                <li><a href="#">конакты</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-auto d-none d-md-block">
+            <div class="header__call">
+              <a href="tel:83472002020" class="header__tel">8 (347) <b>200-20-20</b></a>
+              <a href="#" class="header__callback" data-modal="#callback_popup">Заказать звонок</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <section class="s_home">
+      <div class="container">
+        <div class="row">
+          <h1><span>Новые запчасти на грузовые автомобили в наличии и под заказ.</span><br><span>Скидка 5-20%.Качественные б/у запчасти для существенной экономии</span></h1>
+          <div class="col-md-auto col-12 ml-md-auto mx-auto mx-md-0">
+            <div class="b_form">
+              <form class="ajax-form">
+                <input type="text" name="subject" style="display: none" value="Узнать наличие и стоимость атозапчастей" tabindex="-1">
+                <h3>Узнать наличие и стоимость атозапчастей</h3>
+                <div class="b_form__input">
+                  <input type="text" name="tel" placeholder="Ваш телефон" required>
+                </div>
+                <div class="b_form__input">
+                  <input type="text" name="auto" placeholder="Автомобиль">
+                </div>
+                <div class="b_form__input">
+                  <textarea name="message" placeholder="Требуемые запчасти"></textarea>
+                </div>
+                <div class="b_form__input b_form__file">
+                  <input type="file" id="file-1" multiple accept=".doc, .docx, .xls, .xlsx, .pdf, .jpeg, .jpg, .png">
+                  <label for="file-1" data-placeholder="Добавить файл(документ или изоражение)">Добавить файл(документ или изоражение)</label>
+                </div>
+                <button type="submit" class="b_form__submit btn">отправить</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="s_catalog">
+      <div class="container">
+        <div class="row justify-content-center s_catalog__list">
+          <a href="#" class="col-lg-3 col-md-4 col-6 s_catalog__itm" data-modal="#order_popup">
+            <span class="s_catalog__thumb">
+              <img src="img/catalog/man.jpg" alt="">
+            </span>
+              <h3>Грузовые запчасти MAN</h3>
+          </a>
+          <a href="#" class="col-lg-3 col-md-4 col-6 s_catalog__itm" data-modal="#order_popup">
+            <span class="s_catalog__thumb">
+              <img src="img/catalog/daf.jpg" alt="">
+            </span>
+              <h3>Грузовые запчасти DAF</h3>
+          </a>
+          <a href="#" class="col-lg-3 col-md-4 col-6 s_catalog__itm" data-modal="#order_popup">
+            <span class="s_catalog__thumb">
+              <img src="img/catalog/iveco.jpg" alt="">
+            </span>
+              <h3>Грузовые запчасти IVECO</h3>
+          </a>
+          <a href="#" class="col-lg-3 col-md-4 col-6 s_catalog__itm" data-modal="#order_popup">
+            <span class="s_catalog__thumb">
+              <img src="img/catalog/volvo.jpg" alt="">
+            </span>
+              <h3>Грузовые запчасти VOLVO</h3>
+          </a>
+          <a href="#" class="col-lg-3 col-md-4 col-6 s_catalog__itm" data-modal="#order_popup">
+            <span class="s_catalog__thumb">
+              <img src="img/catalog/mers.jpg" alt="">
+            </span>
+              <h3>Грузовые запчасти MERCEDES</h3>
+          </a>
+          <a href="#" class="col-lg-3 col-md-4 col-6 s_catalog__itm" data-modal="#order_popup">
+            <span class="s_catalog__thumb">
+              <img src="img/catalog/scania.jpg" alt="">
+            </span>
+              <h3>Грузовые запчасти SCANIA</h3>
+          </a>
+          <a href="#" class="col-lg-3 col-md-4 col-6 s_catalog__itm" data-modal="#order_popup">
+            <span class="s_catalog__thumb">
+              <img src="img/catalog/renault.jpg" alt="">
+            </span>
+              <h3>Грузовые запчасти RENAULT</h3>
+          </a>
+          <a href="#" class="col-lg-3 col-md-4 col-6 s_catalog__itm" data-modal="#order_popup">
+            <span class="s_catalog__thumb">
+              <img src="img/catalog/pricep.jpg" alt="">
+            </span>
+              <h3>Запчасти для прицепов</h3>
+          </a>
+        </div>
+        <a href="#" class="btn " data-modal="#order_popup">Продаем запчасти</a>
+      </div>
+    </section>
+    <section class="s_service">
+      <div class="container">
+        <div class="row s_service__list no-gutters">
+          <div class="col-xl-2 col-md-3 col-6 s_service__itm" data-modal="#order_popup">
+            <img src="img/service/1.png" alt="">
+            <h3>двигатель</h3>
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 s_service__itm" data-modal="#order_popup">
+            <img src="img/service/2.png" alt="">
+            <h3>трансмиссия</h3>
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 s_service__itm" data-modal="#order_popup">
+            <img src="img/service/3.png" alt="">
+            <h3>подвеска</h3>
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 s_service__itm" data-modal="#order_popup">
+            <img src="img/service/4.png" alt="">
+            <h3>рулевое  управление</h3>
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 s_service__itm" data-modal="#order_popup">
+            <img src="img/service/5.png" alt="">
+            <h3>система охлаждения</h3>
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 s_service__itm" data-modal="#order_popup">
+            <img src="img/service/6.png" alt="">
+            <h3>кузов</h3>
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 s_service__itm" data-modal="#order_popup">
+            <img src="img/service/7.png" alt="">
+            <h3>тормозная система</h3>
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 s_service__itm" data-modal="#order_popup">
+            <img src="img/service/8.png" alt="">
+            <h3>воздушная система</h3>
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 s_service__itm" data-modal="#order_popup">
+            <img src="img/service/9.png" alt="">
+            <h3>система  выпуска</h3>
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 s_service__itm" data-modal="#order_popup">
+            <img src="img/service/10.png" alt="">
+            <h3>оптика</h3>
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 s_service__itm" data-modal="#order_popup">
+            <img src="img/service/11.png" alt="">
+            <h3>аксессуары</h3>
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 s_service__itm" data-modal="#order_popup">
+            <img src="img/service/12.png" alt="">
+            <h3>электро-оборудование</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="s_benefits">
+      <div class="container">
+        <h2 class="s_title">Наши преимущества</h2>
+        <div class="s_benefits__list">
+          <div class="s_benefits__itm">
+            <span class="ico"><img src="img/benefits/1.png" alt=""></span>
+            <h3>Подбор по профессиональным дилерским каталогам</h3>
+          </div>
+          <div class="s_benefits__itm">
+            <span class="ico">
+                <img src="img/benefits/2.png" alt="">
+            </span>
+            <h3>Более 20 млн позиций, как новых так и б/у запчастей</h3>
+          </div>
+          <div class="s_benefits__itm">
+            <span class="ico">
+                  <img src="img/benefits/3.png" alt="">
+            </span>
+            <h3>Приемлимые цены</h3>
+          </div>
+          <div class="s_benefits__itm">
+            <span class="ico">
+                    <img src="img/benefits/4.png" alt="">
+            </span>
+            <h3>Много позиций в наличии</h3>
+          </div>
+          <div class="s_benefits__itm">
+            <span class="ico">
+                      <img src="img/benefits/5.png" alt="">
+            </span>
+            <h3>Менеджеры-консультанты с опытом работы от 3 лет</h3>
+          </div>
+          <div class="s_benefits__itm">
+            <span class="ico">
+                        <img src="img/benefits/6.png" alt="">
+            </span>
+            <h3>Время отклика и обработку заказа — не более 15 мнут</h3>
+          </div>
+          <div class="s_benefits__itm">
+            <span class="ico">
+                          <img src="img/benefits/7.png" alt="">
+            </span>
+            <h3>Предлагаем несколько вариантов, подберем качественные аналоги</h3>
+          </div>
+          <div class="s_benefits__itm">
+            <span class="ico">
+                            <img src="img/benefits/8.png" alt="">
+            </span>
+            <h3>Доставка по всей России</h3>
+          </div>
+          <div class="s_benefits__itm">
+            <span class="ico">
+                 <img src="img/benefits/9.png" alt="">
+            </span>
+            <h3>Широкая сеть поставщиков и партнеров</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="s_express">
+      <div class="container">
+        <h2 class="s_title">экспресс подбор</h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-12">
+            <form class="ajax-form">
+              <div class="b_form">
+                <input type="text" name="subject" style="display: none" value="Узнать наличие и стоимость атозапчастей" tabindex="-1">
+                <h3>Заполните эту простую форму и мы подберем нужные запчасти в течении 30 минут, предложим несколько вариантов.</h3>
+                <div class="row">
+                  <div class="b_form__input col-md-6 col-12">
+                    <input type="text" name="tel" placeholder="Ваш телефон" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="b_form__input col-md-6 col-12">
+                    <input type="text" name="auto" placeholder="Автомобиль">
+                  </div>
+                  <div class="b_form__input col-md-6 col-12">
+                    <input type="text" name="vin" placeholder="VIN-код автомобиля">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="b_form__input col-12">
+                    <textarea name="message" placeholder="Требуемые запчасти"></textarea>
+                  </div>
+                  <div class="b_form__input b_form__file col-12">
+                    <input type="file" id="file-2" multiple accept=".doc, .docx, .xls, .xlsx, .pdf, .jpeg, .jpg, .png">
+                    <label for="file-2" data-placeholder="Добавить файл(документ или изоражение)">Добавить файл(документ или изоражение)</label>
+                  </div>
+                  <div class="col-md-6 col-12 b_form__input">
+                    <button type="submit" class="b_form__submit btn ">отправить</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="s_express__bot">
+        <div class="container">
+          Не любите терять время и заполнять формы? <br class="d-lg-none">Позвоните по телефону <a href="tel:83472002020">8 (347) <b>200-20-20</b></a>
+        </div>
+      </div>
+    </section>
+    <section class="s_text">
+      <div class="container">
+        <h2 class="s_title">Запчасти на грузовые автомобили в Нижнем Новгороде</h2>
+        <p>Я впервые пишу в поток об управлении и найме персонала. Речь пойдет об одном из способов классифицировать ваших будущих или действующих программистов. Мой основной тезис: все разработчики, грубо говоря, делятся на 4 больших типажа и каждому из этих типажей есть своя область применения. Попытка направить неправильный типаж на решение неподходящих для него задач ведет к провалу (неэффективная работа, или сотрудник покидает команду). Хотите знать почему так — добро пожаловать под кат. Приготовьтесь, текста много.</p>
+        <p>Привет! Меня зовут Артём, и большую часть своего рабочего времени я пишу сложные автотесты на Selenium и Cucumber/Calabash. Честно говоря, довольно часто я оказываюсь перед непростым выбором: написать тест, который проверяет конкретную реализацию функциональности (потому что это проще) или тест, который проверяет функциональность (потому что это правильнее, но намного сложнее)? Недавно мне попалась неплохая статья о том, что тесты реализации – это «тавтологические» тесты. И, прочитав её, я уже почти неделю переписываю некоторые тесты в другом ключе. Надеюсь, вас она тоже подтолкнёт к размышлениям.</p>
+        <p>Начну я с того, что немного расскажу о задаче и о том, почему я взялся ее решать. Должен сказать, что в data science я человек новый. Лет 7 назад я закончил Физический Факультет СПбГУ и с тех пор занимался тем, что получал музыкальное образование. Идея немного размять мозг и вернуться к техническим задачам впервые посетила меня примерно два года назад, на тот момент я уже работал в оркестре Московской Филармонии и учился на 3 курсе в Консерватории. Начал я с того, что вооружившись книгой Страуструпа стал осваивать C++. Далее были конечно же разные онлайн курсы и примерно год назад я стал склоняться к мысли о том, что Data Science — это пожалуй именно то, чем я хотел бы заниматься в IT. Мое “образование” в Data Science — это курс от Яндекса и Вышки на курсере, несколько курсов из специализации МФТИ на курсере и конечно же постоянное саморазвитие в соревнованиях.</p>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="container">
+        <div class="row align-items-center justify-content-md-between justify-content-center">
+          <div class="col-auto">
+            <a href="/" class="header__logo">
+              <img src="img/logo-white.png" alt="" height="60">
+              <p>Запчасти <br>для грузовых <br>автомобилей</p>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a href="tel:83472002020" class="header__tel">8 (347) <b>200-20-20</b></a>
+          </div>
+          <div class="col-auto">
+            <div class="footer__links">
+              <a href="#">Политика конфеденциальности</a><br>
+              <a href="#">Пользовательское соглашение</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <!-- popup -->
+  <div id="callback_popup" class="popup mfp-hide">
+    <div class="b_form">
+      <form class="ajax-form">
+        <input type="text" name="subject" style="display: none" value="Заказать звонок" tabindex="-1">
+        <h3>Оставьте ваши данные и наш менеджер перезвонит вам в течении 30 минут</h3>
+        <div class="b_form__input">
+          <input type="text" name="name" placeholder="Как вас зовут">
+        </div>
+        <div class="b_form__input">
+          <input type="text" name="tel" placeholder="Ваш телефон" required>
+        </div>
+      
+        <button type="submit" class="b_form__submit btn">отправить</button>
+      </form>
+    </div>
+  </div>
+  <div id="order_popup" class="popup mfp-hide">
+    <div class="b_form">
+      <form class="ajax-form">
+        <input type="text" name="subject" style="display: none" value="Узнать наличие и стоимость атозапчастей" tabindex="-1">
+        <h3>Оставьте заявку и наш менеджер свяжется с вами в течении 30 минут</h3>
+        <div class="b_form__input">
+          <input type="text" name="tel" placeholder="Ваш телефон" required>
+        </div>
+        <div class="b_form__input">
+          <input type="text" name="auto" placeholder="Автомобиль">
+        </div>
+        <div class="b_form__input">
+          <textarea name="message" placeholder="Требуемые запчасти"></textarea>
+        </div>
+        <div class="b_form__input b_form__file">
+          <input type="file" id="file-3" multiple accept=".doc, .docx, .xls, .xlsx, .pdf, .jpeg, .jpg, .png">
+          <label for="file-3" data-placeholder="Добавить файл(документ или изоражение)">Добавить файл(документ или изоражение)</label>
+        </div>
+        <button type="submit" class="b_form__submit btn">отправить</button>
+      </form>
+    </div>
+  </div>
+  <div id="thanx" class="popup mfp-hide">
+    <div class="b_form">
+      <h3>Спасибо за заявку! <br>Наш менеджер свяжется с вами в течении 30 минут</h3>
+    </div>
+  </div>
+  <script src="js/scripts.min.js"></script>
+</body>
+
+</html>
