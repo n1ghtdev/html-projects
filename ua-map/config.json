@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "regionId": "Cherkasy",
+      "industries": [
+        {
+          "slug": "solar-farm",
+          "title": "Solar Farm",
+          "region": "Chhkh"
+        },
+        {
+          "slug": "wwtp",
+          "title": "WWTP",
+          "region": "Kasy"
+        }
+      ]
+    },
+    {
+      "regionId": "Kiev",
+      "industries": [
+        {
+          "slug": "solar-farm",
+          "title": "Solar Farm",
+          "region": "Lesnoy"
+        }
+      ]
+    },
+    {
+      "regionId": "Odessa",
+      "industries": [
+        {
+          "slug": "solar-farm",
+          "title": "Solar Farm",
+          "region": "Gold"
+        }
+      ]
+    }
+  ]
+}
