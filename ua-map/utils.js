@@ -1,12 +1,12 @@
 const defaultStyles =
-  "pointer-events:fill;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;opacity:1;stroke:#ffffff;stroke-opacity:1;stroke-linecap:butt;paint-order:stroke fill markers;fill:#2D640C;fill-opacity:1";
+  'pointer-events:fill;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;opacity:1;stroke:#ffffff;stroke-opacity:1;stroke-linecap:butt;paint-order:stroke fill markers;fill:#2D640C;fill-opacity:1';
 const inactiveStyles =
-  "stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;opacity:1;stroke:#ffffff;stroke-opacity:1;stroke-linecap:butt;paint-order:stroke fill markers;fill:#B8CFAD;fill-opacity:1";
+  'stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;opacity:1;stroke:#ffffff;stroke-opacity:1;stroke-linecap:butt;paint-order:stroke fill markers;fill:#B8CFAD;fill-opacity:1';
 
 export async function fetchSvgRegions() {
   try {
-    const response = await fetch("./map.json");
-    const response1 = await fetch("./config.json");
+    const response = await fetch('./map.json');
+    const response1 = await fetch('./config.json');
     return await Promise.all([response.json(), response1.json()]);
   } catch (err) {
     console.log(err);
@@ -19,7 +19,10 @@ export function getIndustries(items) {
   for (let item of items) {
     item.industries.forEach(ind => {
       if (!unique.some(el => el.slug === ind.slug)) {
-        unique.push(ind);
+        unique.push({ ...ind, count: 1 });
+      } else {
+        const idx = unique.findIndex(el => el.slug === ind.slug);
+        unique[idx].count += 1;
       }
     });
   }

@@ -15,85 +15,107 @@ const navIndustries = document.querySelector('.ind-nav_list');
 })();
 
 function createMap(regions, regionsData) {
-  let isMainSVGVisible = true;
+  let viewState = 'main';
   renderMap();
 
   function renderMap() {
-    isMainSVGVisible = true;
+    viewState = 'main';
     render(regions);
     const industries = getIndustries(regionsData);
     renderNavIndustries(industries);
   }
 
   function renderNavIndustries(industries) {
+    function createSpanCounter(count = 0) {
+      const span = document.createElement('span');
+      span.textContent = count;
+      return span;
+    }
+
     const navItems = industries.map(industry => {
-      const { li, button } = createNavItem(industry.title);
-      button.addEventListener('click', () => {
+      const { li, link } = createNavItem();
+      const span = createSpanCounter(industry.count);
+
+      link.addEventListener('click', () => {
+        viewState = 'regions';
         highlightByIndustry(industry.slug);
       });
-      li.appendChild(button);
+      link.textContent = industry.title;
+
+      li.append(link, span);
+
       return li;
     });
 
-    renderNav(navItems);
+    renderNav(navItems, 'Industries');
   }
   function renderNavRegions(regions, industry) {
     let navItems = [];
+    let industryTitle;
     regions.forEach(region => {
       region.industries.forEach(el => {
         if (el.slug === industry) {
-          const { li, button } = createNavItem(
-            `${el.region} (${region.regionId})`,
-          );
-          button.addEventListener('click', () => {
-            highlightByIndustry(el.slug);
+          if (!industryTitle) {
+            industryTitle = el.title;
+          }
+          const { li, link } = createNavItem();
+          link.addEventListener('click', () => {
+            renderSingleRegion(region.regionId);
           });
-          li.appendChild(button);
+          link.textContent = region.regionId;
+          li.append(el.region, ' (', link, ')');
           navItems.push(li);
         }
       });
     });
-    console.log(navItems);
 
-    renderNav(navItems);
+    renderNav(navItems, industryTitle);
   }
-  function renderNavRegionIndustries(industries) {
+  function renderNavSingleRegion(industries, region) {
     const navItems = industries.map(industry => {
-      const { li, button } = createNavItem(industry.title);
-      button.addEventListener('click', () => {
+      const { li, link } = createNavItem();
+      link.addEventListener('click', () => {
+        viewState = 'regions';
         highlightByIndustry(industry.slug);
       });
-      li.appendChild(button);
+      console.log(industry);
+
+      link.innerText = industry.title;
+      li.append(link, ` ${industry.region}`);
       return li;
     });
 
-    renderNav(navItems);
+    renderNav(navItems, `${region} Oblast`);
   }
 
   function createNavItem(text) {
     const li = document.createElement('li');
-    const button = document.createElement('button');
-    button.textContent = text;
-    return { li, button };
+    const link = document.createElement('a');
+    link.href = '#';
+    if (text) {
+      li.textContent = text;
+    }
+    return { li, link };
   }
 
-  function renderNav(items) {
+  function renderNav(items, title = '') {
     /* CLEANUP */
     navIndustries.innerHTML = '';
-    console.log(items);
 
+    navIndustries.innerHTML = `<h3>${title}</h3>`;
     items.forEach(item => {
       navIndustries.appendChild(item);
     });
 
-    if (!isMainSVGVisible) {
-      const { li, button } = createNavItem('Back to whole map');
+    if (viewState === 'single' || viewState === 'regions') {
+      const { li, link } = createNavItem();
 
-      button.addEventListener('click', () => {
+      link.addEventListener('click', () => {
         renderMap();
       });
+      link.textContent = 'Back to whole map';
 
-      li.appendChild(button);
+      li.appendChild(link);
       navIndustries.appendChild(li);
     }
   }
@@ -107,8 +129,7 @@ function createMap(regions, regionsData) {
       }
     });
 
-    if (!isMainSVGVisible) {
-      isMainSVGVisible = true;
+    if (viewState === 'single' || viewState === 'regions') {
       render(
         regions.map(region => {
           if (regionsToHighlight.some(el => el.regionId === region.id)) {
@@ -152,7 +173,7 @@ function createMap(regions, regionsData) {
     }
     const old = document.getElementById(regionId).getBBox();
     const region = regions.find(reg => reg.id === regionId);
-    isMainSVGVisible = false;
+    viewState = 'single';
 
     svgElement.setAttribute('width', old.width * 2);
     svgElement.setAttribute('height', 240);
@@ -169,14 +190,15 @@ function createMap(regions, regionsData) {
     );
 
     renderRegionText(region);
-    renderNavRegionIndustries(
+    renderNavSingleRegion(
       regionsData.find(item => item.regionId === regionId).industries,
+      regionId,
     );
   }
 
   svgContainer.addEventListener('click', e => {
     if (e.target.getAttribute('data-active') === 'true') {
-      if (isMainSVGVisible) {
+      if (viewState !== 'single') {
         renderSingleRegion(e.target.id);
       }
     }
