@@ -5,16 +5,9 @@ import {
   renderRegionText,
 } from './utils.js';
 
-/**
- * TODO:
- * 1. refactor nav-menu, make 1 event responsible for whole nav logic
- * 2. rethink highlightByIndustry structure
- * 3. refactor nav render methods with template literals instead of createElement
- */
-
-const svgElement = document.getElementById('svg57');
+const svgElement = document.getElementById('svg382');
 const svgContainer = document.getElementById('svg-map-regions');
-const navIndustries = document.querySelector('.map-section_nav-list');
+const navIndustries = document.querySelector('.ind-nav_list');
 
 (async () => {
   const [reg, data] = await fetchSvgRegions();
@@ -27,20 +20,12 @@ function createMap(regions, regionsData) {
 
   function renderMap() {
     viewState = 'main';
-
-    const newRegions = regions.map(el => {
-      const active = regionsData.some(reg => reg.regionId === el.id);
-      return { ...el, active };
-    });
-
-    render(newRegions);
+    render(regions);
     const industries = getIndustries(regionsData);
     renderNavIndustries(industries);
   }
 
   function renderNavIndustries(industries) {
-    let totalCount = 0;
-
     function createSpanCounter(count = 0) {
       const span = document.createElement('span');
       span.textContent = count;
@@ -49,8 +34,6 @@ function createMap(regions, regionsData) {
 
     const navItems = industries.map(industry => {
       const { li, link } = createNavItem();
-
-      totalCount += industry.count;
       const span = createSpanCounter(industry.count);
 
       link.addEventListener('click', () => {
@@ -59,18 +42,10 @@ function createMap(regions, regionsData) {
       });
       link.textContent = industry.title;
 
-      li.style.display = 'flex';
       li.append(link, span);
+
       return li;
     });
-
-    const span = createSpanCounter(totalCount);
-    const { li, link } = createNavItem();
-
-    li.style.display = 'flex';
-    li.classList.add('map-section_nav-item-total');
-    li.append('Total number of projects', span);
-    navItems.push(li);
 
     renderNav(navItems, 'Industries');
   }
@@ -99,18 +74,14 @@ function createMap(regions, regionsData) {
   function renderNavSingleRegion(industries, region) {
     const navItems = industries.map(industry => {
       const { li, link } = createNavItem();
-      const span = document.createElement('span');
-
       link.addEventListener('click', () => {
         viewState = 'regions';
         highlightByIndustry(industry.slug);
       });
+      console.log(industry);
 
-      span.style.fontWeight = '500';
-      span.innerText = industry.region;
-      li.style.display = 'flex';
       link.innerText = industry.title;
-      li.append(link, span);
+      li.append(link, ` ${industry.region}`);
       return li;
     });
 
@@ -119,9 +90,8 @@ function createMap(regions, regionsData) {
 
   function createNavItem(text) {
     const li = document.createElement('li');
-    const link = document.createElement('button');
-    li.classList.add('map-section_nav-item');
-    link.classList.add('map-section_nav-item-link');
+    const link = document.createElement('a');
+    link.href = '#';
     if (text) {
       li.textContent = text;
     }
@@ -132,8 +102,7 @@ function createMap(regions, regionsData) {
     /* CLEANUP */
     navIndustries.innerHTML = '';
 
-    navIndustries.innerHTML = `<h3 class="map-section_nav-title">${title}</h3>`;
-
+    navIndustries.innerHTML = `<h3>${title}</h3>`;
     items.forEach(item => {
       navIndustries.appendChild(item);
     });
@@ -182,9 +151,10 @@ function createMap(regions, regionsData) {
     }
   }
   function render(regions) {
-    svgElement.setAttribute('width', '800');
+    svgElement.setAttribute('width', '820');
     svgElement.setAttribute('height', '540');
-    svgElement.setAttribute('viewBox', '0 0 800 540');
+    svgElement.setAttribute('viewBox', '0 0 820 540');
+    svgContainer.setAttribute('transform', `translate(0, 222)`);
 
     svgContainer.innerHTML = '';
 
@@ -212,6 +182,7 @@ function createMap(regions, regionsData) {
       `${old.x} ${old.y} ${old.width} ${old.height}`,
     );
 
+    svgContainer.setAttribute('transform', `translate(0, 0)`);
     svgContainer.innerHTML = renderRegionPath(region);
 
     document.getElementById(`g-${regionId}`).innerHTML += renderRegionText(

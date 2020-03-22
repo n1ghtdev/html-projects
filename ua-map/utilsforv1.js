@@ -5,7 +5,7 @@ const inactiveStyles =
 
 export async function fetchSvgRegions() {
   try {
-    const response = await fetch('./mapv3.json');
+    const response = await fetch('./mapv2.json');
     const response1 = await fetch('./config.json');
     return await Promise.all([response.json(), response1.json()]);
   } catch (err) {
@@ -45,15 +45,7 @@ export function renderRegionText(region) {
     const pathEl = document.getElementById(id).getBBox();
     const x = Math.floor(pathEl.x + pathEl.width / textX);
     const y = Math.floor(pathEl.y + pathEl.height / textY);
-    if (id === 'Ivano-Frankivsk') {
-      const split = id.split('-');
-      return `<text x="${x}" y="${y}" style="pointer-events: none">${
-        split[0]
-      }-</text>
-    <text x="${x}" y="${y + 15}" style="pointer-events: none">${
-        split[1]
-      }</text>`;
-    }
+
     return `<text x="${x}" y="${y}" style="pointer-events: none">${id}</text>`;
   }
 }

@@ -6,22 +6,27 @@
         {
           "slug": "solar-farm",
           "title": "Solar Farm",
-          "region": "Chhkh"
+          "region": "Cherkasy #1"
         },
         {
           "slug": "wwtp",
           "title": "WWTP",
-          "region": "Kasy"
+          "region": "Cherkasy #2"
         }
       ]
     },
     {
-      "regionId": "Kiev",
+      "regionId": "Kyiv",
       "industries": [
         {
           "slug": "solar-farm",
           "title": "Solar Farm",
           "region": "Lesnoy"
+        },
+        {
+          "slug": "power",
+          "title": "Power",
+          "region": "Pripyat"
         }
       ]
     },
@@ -31,7 +36,77 @@
         {
           "slug": "solar-farm",
           "title": "Solar Farm",
-          "region": "Gold"
+          "region": "Golden Sands"
+        }
+      ]
+    },
+    {
+      "regionId": "Kharkiv",
+      "industries": [
+        {
+          "slug": "power",
+          "title": "Power",
+          "region": "Kharkiv"
+        }
+      ]
+    },
+    {
+      "regionId": "Zaporizhzhya",
+      "industries": [
+        {
+          "slug": "chemicals",
+          "title": "Chemicals",
+          "region": "Zap chem lab #1"
+        }
+      ]
+    },
+    {
+      "regionId": "Ivano-Frankivsk",
+      "industries": [
+        {
+          "slug": "forestry",
+          "title": "Forestry",
+          "region": "IF forestry"
+        }
+      ]
+    },
+    {
+      "regionId": "Lviv",
+      "industries": [
+        {
+          "slug": "forestry",
+          "title": "Forestry",
+          "region": "Lviv"
+        }
+      ]
+    },
+    {
+      "regionId": "Dnipropetrovks",
+      "industries": [
+        {
+          "slug": "power",
+          "title": "Power",
+          "region": "Power Plant"
+        }
+      ]
+    },
+    {
+      "regionId": "Vinnytsya",
+      "industries": [
+        {
+          "slug": "food-production",
+          "title": "Food production",
+          "region": "Food"
+        }
+      ]
+    },
+    {
+      "regionId": "Kirovohrad",
+      "industries": [
+        {
+          "slug": "infra",
+          "title": "Infrastructure",
+          "region": "Infra"
         }
       ]
     }
