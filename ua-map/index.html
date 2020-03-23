@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <style>
@@ -16,6 +20,7 @@
         padding: 0 20px;
         margin: 40px auto 0 auto;
         display: flex;
+        font-family: 'Open Sans', sans-serif;
       }
       .map-section {
         width: 100%;
@@ -27,10 +32,11 @@
       }
       .map-section_title {
         font-size: 30px;
-        font-weight: 500;
+        font-weight: 600;
         color: #000;
         margin: 0;
         margin-bottom: 15px;
+        letter-spacing: 1px;
       }
       .map-section_subtitle {
         font-size: 17px;
@@ -43,23 +49,19 @@
         display: flex;
         flex-wrap: wrap;
       }
-      .map-section svg {
+      .map-section_content.single > .map_section_svg {
+        width: 75%;
+      }
+      .map-section_content.single > .map_section_nav {
+        width: 25%;
+      }
+      .map-section_svg {
         padding-right: 30px;
         width: 80%;
         height: 420px;
       }
       .map-section_nav {
         width: 20%;
-      }
-      @media screen and (max-width: 767px) {
-        .map-section svg {
-          width: 100%;
-          height: 320px;
-          padding-right: 0;
-        }
-        .map-section nav {
-          width: 100%;
-        }
       }
       .map-section_nav-list {
         list-style-type: none;
@@ -69,16 +71,29 @@
       .map-section_nav-title {
         font-size: 20px;
         color: #000;
-        font-weight: 500;
+        font-weight: 600;
+        margin-top: 0;
       }
       .map-section_nav-item {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+      }
+      .map-section_nav-item-back {
+        position: relative;
+        margin-top: 40px;
+      }
+      .map-section_nav-item-back-arrow {
+        position: absolute;
+        width: 19px;
+        height: 11px;
+        left: -25px;
+        top: 7px;
       }
       .map-section_nav-item:last-child {
         margin-bottom: 0;
       }
       .map-section_nav-item span {
         margin-left: auto;
+        font-size: 17px;
       }
       .map-section_nav-item-total {
         margin-top: 20px;
@@ -105,6 +120,7 @@
         fill: #68aa3e !important;
       }
       .map-section_region-name {
+        font-family: sans-serif;
         font-size: 16px;
         fill: #fff;
         opacity: 0;
@@ -118,6 +134,25 @@
       svg path:hover + .map-section_region-name {
         visibility: visible;
         opacity: 0.8;
+      }
+      @media screen and (max-width: 767px) {
+        .map-section_content.single > .map_section_svg,
+        .map-section_content.single > .map_section_nav {
+          width: 100%;
+        }
+        .map-section_svg {
+          width: 100%;
+          height: 320px;
+          padding-right: 0;
+        }
+        .map-section_nav {
+          width: 100%;
+        }
+        .map-section_nav-item-back-arrow {
+          position: relative;
+          top: 0;
+          left: 0;
+        }
       }
     </style>
     <div class="map-section">
@@ -134,6 +169,7 @@
           viewBox="0 0 800 540"
           id="svg57"
           style="stroke-linecap:round;stroke-linejoin:round"
+          class="map-section_svg"
         >
           <g id="svg-map-regions"></g>
         </svg>

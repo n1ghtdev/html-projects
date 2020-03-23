@@ -3,11 +3,12 @@ import {
   renderRegionPath,
   renderRegionText,
 } from './utils.js';
-import { mapConfig } from './mapv3.js';
+import { mapConfig } from './mapConfig.js';
 import { mapData } from './mapData.js';
 
 const svgElement = document.getElementById('svg57');
 const svgContainer = document.getElementById('svg-map-regions');
+const nav = document.querySelector('.map-section_nav');
 const navMenu = document.querySelector('.map-section_nav-list');
 
 // change structure from server to ->
@@ -116,6 +117,9 @@ function createMap(mapConfig, mapData) {
     svgElement.setAttribute('height', '540');
     svgElement.setAttribute('viewBox', '0 0 800 540');
 
+    svgElement.classList.remove('single');
+    nav.classList.remove('single');
+
     svgContainer.innerHTML = '';
 
     if (regionsKeys) {
@@ -165,6 +169,10 @@ function createMap(mapConfig, mapData) {
     if (!regionKey) {
       return;
     }
+
+    svgElement.classList.add('single');
+    nav.classList.add('single');
+
     const old = document.getElementById(regionKey).getBBox();
     const region = mapConfig.find(reg => reg.key === regionKey);
     const regionName = mapData.find(reg => reg.key === regionKey).name;
@@ -204,7 +212,10 @@ function createMap(mapConfig, mapData) {
 
     if (viewState === 'single' || viewState === 'regions') {
       const li = `
-        <li class="map-section_nav-item">
+        <li class="map-section_nav-item map-section_nav-item-back">
+          <svg class="map-section_nav-item-back-arrow" width="19" height="11" viewBox="0 0 19 11" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.11598 5.25697L6.05348 0.100716C6.20811 -0.033572 6.4586 -0.033572 6.6132 0.100716C6.76783 0.235004 6.76783 0.452534 6.6132 0.586789L1.35139 5.15626H18.6042C18.823 5.15626 19 5.31001 19 5.50002C19 5.69003 18.823 5.84378 18.6042 5.84378H1.35139L6.6132 10.4132C6.76783 10.5475 6.76783 10.765 6.6132 10.8993C6.5359 10.9664 6.43459 11 6.33332 11C6.23205 11 6.13078 10.9664 6.05344 10.8993L0.115944 5.74304C-0.0386543 5.60878 -0.0386543 5.39126 0.11598 5.25697Z" fill="black"/>
+          </svg>
           <button class="map-section_nav-item-link">Back to whole map</button>
         </li>`;
       navMenu.innerHTML += li;
@@ -225,7 +236,7 @@ function createMap(mapConfig, mapData) {
     const liTotalProjects = `
       <li style="display: flex;" class="map-section_nav-item map-section_nav-item-total">
         Total number of projects
-        <span>${total}</span>
+        <span style="font-size: 20px;">${total}</span>
       </li>`;
 
     navItems.push(liTotalProjects);
@@ -262,7 +273,6 @@ function createMap(mapConfig, mapData) {
     const { name, industries } = mapData.find(
       region => region.key === regionKey,
     );
-    console.log(regionKey);
 
     const navItems = industries.map(industry => {
       return `
@@ -270,7 +280,7 @@ function createMap(mapConfig, mapData) {
           <button class="map-section_nav-item-link" data-industry="${industry.slug}">
             ${industry.title}
           </button>
-          <span style="font-weight: 500;">${industry.city}</span>
+          <span style="font-weight: 600;">${industry.city}</span>
         </li>`;
     });
 
