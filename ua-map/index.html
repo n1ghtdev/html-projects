@@ -11,35 +11,55 @@
         box-sizing: border-box;
       }
       body {
-        margin: 0;
         max-width: 1000px;
         width: 100%;
         padding: 0 20px;
-        margin: 0 auto;
+        margin: 40px auto 0 auto;
         display: flex;
-      }
-      path {
-        transition: all 250ms;
-      }
-      svg path:hover {
-        fill: #68aa3e !important;
-      }
-      text {
-        font-size: 16px;
-        fill: #fff;
-        opacity: 0.8;
       }
       .map-section {
         width: 100%;
         height: 100%;
+      }
+      .map-section_header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+      .map-section_title {
+        font-size: 30px;
+        font-weight: 500;
+        color: #000;
+        margin: 0;
+        margin-bottom: 15px;
+      }
+      .map-section_subtitle {
+        font-size: 17px;
+        color: #4a4a4a;
+        margin: 0;
+      }
+      .map-section_content {
+        width: 100%;
+        height: 100%;
         display: flex;
+        flex-wrap: wrap;
       }
       .map-section svg {
+        padding-right: 30px;
         width: 80%;
         height: 420px;
       }
-      .map-section nav {
+      .map-section_nav {
         width: 20%;
+      }
+      @media screen and (max-width: 767px) {
+        .map-section svg {
+          width: 100%;
+          height: 320px;
+          padding-right: 0;
+        }
+        .map-section nav {
+          width: 100%;
+        }
       }
       .map-section_nav-list {
         list-style-type: none;
@@ -78,31 +98,49 @@
       .map-section_nav-item-link:focus {
         outline: none;
       }
+      .map-section_region-path {
+        transition: all 250ms;
+      }
+      .map-section_region-path:hover {
+        fill: #68aa3e !important;
+      }
+      .map-section_region-name {
+        font-size: 16px;
+        fill: #fff;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 500ms;
+      }
+      .map-section_region-name.single {
+        visibility: visible;
+        opacity: 0.8;
+      }
+      svg path:hover + .map-section_region-name {
+        visibility: visible;
+        opacity: 0.8;
+      }
     </style>
     <div class="map-section">
-      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-      <svg
-        xmlns:dc="http://purl.org/dc/elements/1.1/"
-        xmlns:cc="http://creativecommons.org/ns#"
-        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-        xmlns:svg="http://www.w3.org/2000/svg"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-        version="1.2"
-        width="800"
-        height="540"
-        viewBox="0 0 800 540"
-        id="svg57"
-        sodipodi:docname="v2.svg"
-        style="stroke-linecap:round;stroke-linejoin:round"
-        inkscape:version="0.92.4 5da689c313, 2019-01-14"
-      >
-        <g id="svg-map-regions"></g>
-      </svg>
-      <nav class="map-section_nav">
-        <ul class="map-section_nav-list"></ul>
-      </nav>
+      <div class="map-section_header">
+        <h3 class="map-section_title">Interactive projects map</h3>
+        <p class="map-section_subtitle">
+          Click on region or industry to get detailed information
+        </p>
+      </div>
+      <div class="map-section_content">
+        <svg
+          width="800"
+          height="540"
+          viewBox="0 0 800 540"
+          id="svg57"
+          style="stroke-linecap:round;stroke-linejoin:round"
+        >
+          <g id="svg-map-regions"></g>
+        </svg>
+        <nav class="map-section_nav">
+          <ul class="map-section_nav-list"></ul>
+        </nav>
+      </div>
     </div>
     <script type="module" src="./map.js"></script>
   </body>

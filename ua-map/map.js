@@ -1,208 +1,174 @@
 import {
-  fetchSvgRegions,
-  getIndustries,
+  getUniqueIndustries,
   renderRegionPath,
   renderRegionText,
 } from './utils.js';
-
-/**
- * TODO:
- * 1. refactor nav-menu, make 1 event responsible for whole nav logic
- * 2. rethink highlightByIndustry structure
- * 3. refactor nav render methods with template literals instead of createElement
- */
+import { mapConfig } from './mapv3.js';
+import { mapData } from './mapData.js';
 
 const svgElement = document.getElementById('svg57');
 const svgContainer = document.getElementById('svg-map-regions');
-const navIndustries = document.querySelector('.map-section_nav-list');
+const navMenu = document.querySelector('.map-section_nav-list');
 
-(async () => {
-  const [reg, data] = await fetchSvgRegions();
-  createMap(reg.regions, data.data);
-})();
+// change structure from server to ->
+// [{key, name, industries: [{slug, title, city}] }]
+const newMapData = Object.keys(mapData).map(regionKey => {
+  const { key, name, cities } = mapData[regionKey];
+  let industries = [];
 
-function createMap(regions, regionsData) {
+  cities.forEach(city => {
+    city.industries.forEach(industry => {
+      industries.push({
+        ...industry,
+        city: city.name,
+      });
+    });
+  });
+  return {
+    key,
+    name,
+    industries,
+  };
+});
+
+createMap(mapConfig, newMapData);
+
+function createMap(mapConfig, mapData) {
   let viewState = 'main';
-  renderMap();
 
-  function renderMap() {
-    viewState = 'main';
+  render();
+  initEvents();
 
-    const newRegions = regions.map(el => {
-      const active = regionsData.some(reg => reg.regionId === el.id);
-      return { ...el, active };
-    });
+  function render(regions) {
+    switch (viewState) {
+      case 'main': {
+        const [uniqueIndustries, total] = getUniqueIndustries(mapData);
 
-    render(newRegions);
-    const industries = getIndustries(regionsData);
-    renderNavIndustries(industries);
-  }
-
-  function renderNavIndustries(industries) {
-    let totalCount = 0;
-
-    function createSpanCounter(count = 0) {
-      const span = document.createElement('span');
-      span.textContent = count;
-      return span;
+        renderByRegions();
+        renderNavIndustries(uniqueIndustries, total);
+        break;
+      }
+      case 'regions': {
+        renderByRegions(regions);
+        break;
+      }
+      case 'single': {
+        renderSingleRegion(regions);
+        break;
+      }
     }
-
-    const navItems = industries.map(industry => {
-      const { li, link } = createNavItem();
-
-      totalCount += industry.count;
-      const span = createSpanCounter(industry.count);
-
-      link.addEventListener('click', () => {
-        viewState = 'regions';
-        highlightByIndustry(industry.slug);
-      });
-      link.textContent = industry.title;
-
-      li.style.display = 'flex';
-      li.append(link, span);
-      return li;
-    });
-
-    const span = createSpanCounter(totalCount);
-    const { li, link } = createNavItem();
-
-    li.style.display = 'flex';
-    li.classList.add('map-section_nav-item-total');
-    li.append('Total number of projects', span);
-    navItems.push(li);
-
-    renderNav(navItems, 'Industries');
   }
-  function renderNavRegions(regions, industry) {
-    let navItems = [];
-    let industryTitle;
-    regions.forEach(region => {
-      region.industries.forEach(el => {
-        if (el.slug === industry) {
-          if (!industryTitle) {
-            industryTitle = el.title;
-          }
-          const { li, link } = createNavItem();
-          link.addEventListener('click', () => {
-            renderSingleRegion(region.regionId);
-          });
-          link.textContent = region.regionId;
-          li.append(el.region, ' (', link, ')');
-          navItems.push(li);
+
+  // ========================= INIT EVENTS FUNCTION ======================
+
+  function initEvents() {
+    svgContainer.addEventListener('click', e => {
+      if (e.target.getAttribute('data-active') === 'true') {
+        if (viewState !== 'single') {
+          viewState = 'single';
+          render(e.target.id);
+          renderNavSingleRegion(e.target.id);
         }
-      });
-    });
-
-    renderNav(navItems, industryTitle);
-  }
-  function renderNavSingleRegion(industries, region) {
-    const navItems = industries.map(industry => {
-      const { li, link } = createNavItem();
-      const span = document.createElement('span');
-
-      link.addEventListener('click', () => {
-        viewState = 'regions';
-        highlightByIndustry(industry.slug);
-      });
-
-      span.style.fontWeight = '500';
-      span.innerText = industry.region;
-      li.style.display = 'flex';
-      link.innerText = industry.title;
-      li.append(link, span);
-      return li;
-    });
-
-    renderNav(navItems, `${region} Oblast`);
-  }
-
-  function createNavItem(text) {
-    const li = document.createElement('li');
-    const link = document.createElement('button');
-    li.classList.add('map-section_nav-item');
-    link.classList.add('map-section_nav-item-link');
-    if (text) {
-      li.textContent = text;
-    }
-    return { li, link };
-  }
-
-  function renderNav(items, title = '') {
-    /* CLEANUP */
-    navIndustries.innerHTML = '';
-
-    navIndustries.innerHTML = `<h3 class="map-section_nav-title">${title}</h3>`;
-
-    items.forEach(item => {
-      navIndustries.appendChild(item);
-    });
-
-    if (viewState === 'single' || viewState === 'regions') {
-      const { li, link } = createNavItem();
-
-      link.addEventListener('click', () => {
-        renderMap();
-      });
-      link.textContent = 'Back to whole map';
-
-      li.appendChild(link);
-      navIndustries.appendChild(li);
-    }
-  }
-
-  function highlightByIndustry(activeIndustry) {
-    let regionsToHighlight = [];
-
-    regionsData.forEach(item => {
-      if (item.industries.some(el => el.slug === activeIndustry)) {
-        regionsToHighlight.push(item);
       }
     });
 
-    if (viewState === 'single' || viewState === 'regions') {
-      render(
-        regions.map(region => {
-          if (regionsToHighlight.some(el => el.regionId === region.id)) {
-            return { ...region, active: true };
-          }
-          return { ...region, active: false };
-        }),
-      );
-      renderNavRegions(regionsToHighlight, activeIndustry);
-    } else {
-      render(
-        regions.map(region => {
-          if (regionsToHighlight.some(el => el.regionId === region.id)) {
-            return { ...region, active: true };
-          }
-          return { ...region, active: false };
-        }),
-      );
-    }
+    navMenu.addEventListener('click', e => {
+      const el = e.target;
+
+      if (el.getAttribute('data-industry')) {
+        viewState = 'regions';
+        const activeIndustry = el.getAttribute('data-industry');
+        const regionsKeys = [];
+
+        mapData.forEach(region => {
+          region.industries.forEach(industry => {
+            if (industry.slug === activeIndustry) {
+              const isDuplicate = regionsKeys.some(key => key === region.key);
+
+              if (!isDuplicate) {
+                regionsKeys.push(region.key);
+              }
+            }
+          });
+        });
+
+        render(regionsKeys);
+        renderNavRegions(activeIndustry);
+      } else if (el.getAttribute('data-region-key')) {
+        viewState = 'single';
+        const regionKey = el.getAttribute('data-region-key');
+        const regionName = mapData.find(region => region.key === regionKey)
+          .name;
+
+        render(regionKey);
+        renderNavSingleRegion(regionKey);
+      } else {
+        viewState = 'main';
+        render();
+      }
+    });
   }
-  function render(regions) {
+
+  // ===================== MAP RENDERING FUNCTIONS =======================
+
+  function renderByRegions(regionsKeys) {
     svgElement.setAttribute('width', '800');
     svgElement.setAttribute('height', '540');
     svgElement.setAttribute('viewBox', '0 0 800 540');
 
     svgContainer.innerHTML = '';
 
-    regions.forEach(el => {
-      svgContainer.innerHTML += renderRegionPath(el);
-    });
+    if (regionsKeys) {
+      mapConfig.forEach(el => {
+        const active = regionsKeys.some(key => key === el.key);
+        svgContainer.innerHTML += renderRegionPath({ ...el, active });
+      });
+    } else {
+      mapConfig.forEach(el => {
+        const active =
+          mapData.find(reg => reg.key === el.key).industries.length !== 0;
 
-    regions.forEach(el => {
-      document.getElementById(`g-${el.id}`).innerHTML += renderRegionText(el);
-    });
+        svgContainer.innerHTML += renderRegionPath({ ...el, active });
+      });
+    }
+
+    if (regionsKeys) {
+      mapConfig.forEach(el => {
+        const active = regionsKeys.some(key => key === el.key);
+        const { name, industries } = mapData.find(reg => reg.key === el.key);
+
+        document.getElementById(`g-${el.key}`).innerHTML += renderRegionText({
+          key: el.key,
+          textX: el.textX,
+          textY: el.textY,
+          active,
+          name,
+        });
+      });
+    } else {
+      mapConfig.forEach(el => {
+        const { name, industries } = mapData.find(reg => reg.key === el.key);
+        const active = industries.length !== 0;
+
+        document.getElementById(`g-${el.key}`).innerHTML += renderRegionText({
+          key: el.key,
+          textX: el.textX,
+          textY: el.textY,
+          active,
+          name,
+        });
+      });
+    }
   }
 
-  function renderSingleRegion(regionId) {
-    if (!regionId) {
+  function renderSingleRegion(regionKey) {
+    if (!regionKey) {
       return;
     }
-    const old = document.getElementById(regionId).getBBox();
-    const region = regions.find(reg => reg.id === regionId);
+    const old = document.getElementById(regionKey).getBBox();
+    const region = mapConfig.find(reg => reg.key === regionKey);
+    const regionName = mapData.find(reg => reg.key === regionKey).name;
+
     viewState = 'single';
 
     svgElement.setAttribute('width', old.width * 2);
@@ -212,24 +178,102 @@ function createMap(regions, regionsData) {
       `${old.x} ${old.y} ${old.width} ${old.height}`,
     );
 
-    svgContainer.innerHTML = renderRegionPath(region);
+    svgContainer.innerHTML = renderRegionPath({ ...region, active: true });
 
-    document.getElementById(`g-${regionId}`).innerHTML += renderRegionText(
-      region,
-    );
-
-    renderRegionText(region);
-    renderNavSingleRegion(
-      regionsData.find(item => item.regionId === regionId).industries,
-      regionId,
+    document.getElementById(`g-${regionKey}`).innerHTML += renderRegionText(
+      {
+        key: regionKey,
+        textX: region.textX,
+        textY: region.textY,
+        active: true,
+        name: regionName,
+      },
+      true,
     );
   }
 
-  svgContainer.addEventListener('click', e => {
-    if (e.target.getAttribute('data-active') === 'true') {
-      if (viewState !== 'single') {
-        renderSingleRegion(e.target.id);
-      }
+  // ==================== NAV MENU RENDERING FUNCTIONS =====================
+
+  function renderNav(items, title = '') {
+    navMenu.innerHTML = '';
+    navMenu.innerHTML = `<h3 class="map-section_nav-title">${title}</h3>`;
+
+    items.forEach(item => {
+      navMenu.innerHTML += item;
+    });
+
+    if (viewState === 'single' || viewState === 'regions') {
+      const li = `
+        <li class="map-section_nav-item">
+          <button class="map-section_nav-item-link">Back to whole map</button>
+        </li>`;
+      navMenu.innerHTML += li;
     }
-  });
+  }
+
+  function renderNavIndustries(industries, total) {
+    const navItems = industries.map(industry => {
+      return `
+        <li style="display: flex;" class="map-section_nav-item">
+          <button class="map-section_nav-item-link" data-industry="${industry.slug}">
+            ${industry.title}
+          </button>
+          <span>${industry.count}</span>
+        </li>`;
+    });
+
+    const liTotalProjects = `
+      <li style="display: flex;" class="map-section_nav-item map-section_nav-item-total">
+        Total number of projects
+        <span>${total}</span>
+      </li>`;
+
+    navItems.push(liTotalProjects);
+
+    renderNav(navItems, 'Industries');
+  }
+
+  function renderNavRegions(activeIndustry) {
+    let navItems = [];
+    let industryTitle = '';
+
+    mapData.forEach(region => {
+      region.industries.forEach(industry => {
+        if (industry.slug === activeIndustry) {
+          if (!industryTitle) industryTitle = industry.title;
+
+          const li = `
+            <li class="map-section_nav-item">
+              ${industry.city}
+              (<button class="map-section_nav-item-link" data-region-key="${region.key}">
+                ${region.name}
+              </button>)
+            </li>`;
+
+          navItems.push(li);
+        }
+      });
+    });
+
+    renderNav(navItems, industryTitle);
+  }
+
+  function renderNavSingleRegion(regionKey) {
+    const { name, industries } = mapData.find(
+      region => region.key === regionKey,
+    );
+    console.log(regionKey);
+
+    const navItems = industries.map(industry => {
+      return `
+        <li class="map-section_nav-item" style="display: flex;">
+          <button class="map-section_nav-item-link" data-industry="${industry.slug}">
+            ${industry.title}
+          </button>
+          <span style="font-weight: 500;">${industry.city}</span>
+        </li>`;
+    });
+
+    renderNav(navItems, `${name} Oblast`);
+  }
 }

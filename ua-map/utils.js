@@ -3,57 +3,55 @@ const defaultStyles =
 const inactiveStyles =
   'stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;opacity:1;stroke:#ffffff;stroke-opacity:1;stroke-linecap:butt;paint-order:stroke fill markers;fill:#B8CFAD;fill-opacity:1';
 
-export async function fetchSvgRegions() {
-  try {
-    const response = await fetch('./mapv3.json');
-    const response1 = await fetch('./config.json');
-    return await Promise.all([response.json(), response1.json()]);
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-export function getIndustries(items) {
+export function getUniqueIndustries(items) {
   let unique = [];
+  let total = 0;
 
-  for (let item of items) {
-    item.industries.forEach(ind => {
-      if (!unique.some(el => el.slug === ind.slug)) {
-        unique.push({ ...ind, count: 1 });
-      } else {
-        const idx = unique.findIndex(el => el.slug === ind.slug);
-        unique[idx].count += 1;
-      }
-    });
+  for (let region of items) {
+    if (region.industries.length !== 0) {
+      region.industries.forEach(industry => {
+        total += 1;
+
+        if (!unique.some(el => el.slug === industry.slug)) {
+          unique.push({ ...industry, count: 1 });
+        } else {
+          const idx = unique.findIndex(el => el.slug === industry.slug);
+          unique[idx].count += 1;
+        }
+      });
+    }
   }
 
-  return unique;
+  return [unique, total];
 }
 
 export function renderRegionPath(region) {
-  const { id, d, active } = region;
-  return `<g id="g-${id}" style="pointer-events: none;">
-    <path d="${d}" id="${id}" data-active="${active}" style="${
+  const { key, d, active } = region;
+
+  return `<g id="g-${key}" style="pointer-events: none;">
+    <path d="${d}" id="${key}" class="map-section_region-path"
+    data-active="${active}" style="${
     active ? defaultStyles : inactiveStyles
   }" /></g>`;
 }
 
-export function renderRegionText(region) {
-  const { id, active, textX, textY } = region;
+export function renderRegionText(region, single) {
+  const { key, name, active, textX, textY } = region;
 
   if (active && textX) {
-    const pathEl = document.getElementById(id).getBBox();
+    const pathEl = document.getElementById(key).getBBox();
     const x = Math.floor(pathEl.x + pathEl.width / textX);
     const y = Math.floor(pathEl.y + pathEl.height / textY);
-    if (id === 'Ivano-Frankivsk') {
-      const split = id.split('-');
-      return `<text x="${x}" y="${y}" style="pointer-events: none">${
-        split[0]
-      }-</text>
-    <text x="${x}" y="${y + 15}" style="pointer-events: none">${
-        split[1]
-      }</text>`;
+
+    if (key === 'IF') {
+      const split = name.split('-');
+
+      return `<text class="map-section_region-name" x="${x}" y="${y}" style="pointer-events: none">
+        <tspan x="${x}" y="${y}">${split[0]}-</tspan>
+        <tspan x="${x}" y="${y + 15}">${split[1]}</tspan>
+      </text>`;
     }
-    return `<text x="${x}" y="${y}" style="pointer-events: none">${id}</text>`;
+    return `<text class="map-section_region-name ${single ? 'single' : ''}"
+    x="${x}" y="${y}" style="pointer-events: none">${name}</text>`;
   }
 }
