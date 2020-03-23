@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="map-section">
+      <style>
+        * {
+          box-sizing: border-box;
+        }
+        .container {
+          max-width: 1000px;
+          width: 100%;
+          margin: 0 auto;
+          padding: 0 20px;
+        }
+        .map-section {
+          width: 100%;
+          height: 100%;
+        }
+        .map-section_header {
+          text-align: center;
+          margin-bottom: 50px;
+        }
+        .map-section_title {
+          font-size: 30px;
+          font-weight: 600;
+          color: #000;
+          margin: 0;
+          margin-bottom: 15px;
+          letter-spacing: 1px;
+        }
+        .map-section_subtitle {
+          font-size: 17px;
+          color: #4a4a4a;
+          margin: 0;
+        }
+        .map-section_content {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-wrap: wrap;
+        }
+        .map-section_content.single > .map_section_svg {
+          width: 75%;
+        }
+        .map-section_content.single > .map_section_nav {
+          width: 25%;
+        }
+        .map-section_svg {
+          padding-right: 30px;
+          width: 80%;
+          height: 420px;
+        }
+        .map-section_nav {
+          width: 20%;
+        }
+        .map-section_nav-list {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+        }
+        .map-section_nav-title {
+          font-size: 20px;
+          color: #000;
+          font-weight: 600;
+          margin-top: 0;
+        }
+        .map-section_nav-item {
+          margin-bottom: 8px;
+        }
+        .map-section_nav-item-back {
+          position: relative;
+          margin-top: 40px;
+        }
+        .map-section_nav-item-back-arrow {
+          position: absolute;
+          width: 19px;
+          height: 11px;
+          left: -25px;
+          top: 7px;
+        }
+        .map-section_nav-item:last-child {
+          margin-bottom: 0;
+        }
+        .map-section_nav-item span {
+          margin-left: auto;
+          font-size: 17px;
+        }
+        .map-section_nav-item-total {
+          margin-top: 20px;
+        }
+        .map-section_nav-item-link {
+          padding: 0;
+          color: #2d640c;
+          font-size: 15px;
+          background: none;
+          border: none;
+          cursor: pointer;
+        }
+        .map-section_nav-item-link:hover,
+        .map-section_nav-item-link:focus {
+          text-decoration: underline;
+        }
+        .map-section_nav-item-link:focus {
+          outline: none;
+        }
+        .map-section_region-path {
+          transition: all 250ms;
+        }
+        .map-section_region-path:hover {
+          fill: #68aa3e !important;
+        }
+        .map-section_region-name {
+          font-family: sans-serif;
+          font-size: 16px;
+          fill: #fff;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 500ms;
+        }
+        .map-section_region-name.single {
+          visibility: visible;
+          opacity: 0.8;
+        }
+        .map-section_region-path:hover + .map-section_region-name {
+          visibility: visible;
+          opacity: 0.8;
+        }
+        @media screen and (max-width: 767px) {
+          .map-section_header {
+            margin-bottom: 10px;
+          }
+          .map-section_title {
+            font-size: 20px;
+          }
+          .map-section_subtitle {
+            font-size: 15px;
+          }
+          .map-section_content.single > .map_section_svg,
+          .map-section_content.single > .map_section_nav {
+            width: 100%;
+          }
+          .map-section_svg {
+            width: 100%;
+            height: 320px;
+            padding-right: 0;
+          }
+          .map-section_nav {
+            width: 100%;
+          }
+          .map-section_nav-item-back-arrow {
+            position: relative;
+            top: 0;
+            left: 0;
+          }
+        }
+      </style>
+      <div class="container">
+        <div class="map-section_header">
+          <h3 class="map-section_title">Interactive projects map</h3>
+          <p class="map-section_subtitle">
+            Click on region or industry to get detailed information
+          </p>
+        </div>
+        <div class="map-section_content">
+          <svg
+            width="800"
+            height="540"
+            viewBox="0 0 800 540"
+            id="svg57"
+            style="stroke-linecap:round;stroke-linejoin:round"
+            class="map-section_svg"
+          >
+            <g id="svg-map-regions"></g>
+          </svg>
+          <nav class="map-section_nav">
+            <ul class="map-section_nav-list"></ul>
+          </nav>
+        </div>
+      </div>
+      <script src="./map-bundle.js"></script>
+    </div>
+  </body>
+</html>
