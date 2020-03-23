@@ -46,12 +46,16 @@ export function renderRegionText(region, single) {
     if (key === 'IF') {
       const split = name.split('-');
 
-      return `<text class="map-section_region-name" x="${x}" y="${y}" style="pointer-events: none">
+      return `<text class="map-section_region-name ${
+        single ? 'single' : ''
+      }" x="${x}" y="${y}" style="pointer-events: none">
         <tspan x="${x}" y="${y}">${split[0]}-</tspan>
         <tspan x="${x}" y="${y + 15}">${split[1]}</tspan>
       </text>`;
     }
     return `<text class="map-section_region-name ${single ? 'single' : ''}"
-    x="${x}" y="${y}" style="pointer-events: none">${name}</text>`;
+    x="${x}" y="${y}" style="pointer-events: none; font-size: ${
+      single && key === 'KN' ? '9px' : '16px'
+    };">${name}</text>`;
   }
 }
