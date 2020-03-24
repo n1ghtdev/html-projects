@@ -43,10 +43,10 @@
           display: flex;
           flex-wrap: wrap;
         }
-        .map-section_content.single > .map_section_svg {
+        .map-section_content > .map-section_svg.single {
           width: 75%;
         }
-        .map-section_content.single > .map_section_nav {
+        .map-section_content > .map-section_nav.single {
           width: 25%;
         }
         .map-section_svg {
@@ -110,7 +110,7 @@
         .map-section_region-path {
           transition: all 250ms;
         }
-        .map-section_region-path:hover {
+        svg:not(.single) .map-section_region-path:hover {
           fill: #68aa3e !important;
         }
         .map-section_region-name {
@@ -139,8 +139,8 @@
           .map-section_subtitle {
             font-size: 15px;
           }
-          .map-section_content.single > .map_section_svg,
-          .map-section_content.single > .map_section_nav {
+          .map-section_content > .map-section_svg.single,
+          .map-section_content > .map-section_nav.single {
             width: 100%;
           }
           .map-section_svg {

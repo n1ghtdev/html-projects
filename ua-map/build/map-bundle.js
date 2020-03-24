@@ -738,10 +738,10 @@ function createMap(mapConfig, mapData) {
     const navItems = industries.map(industry => {
       return `
         <li class="map-section_nav-item" style="display: flex;">
-          <button class="map-section_nav-item-link" data-industry="${industry.slug}">
+          <span style="margin-left: 0;">${industry.city}</span>
+          <button style="margin-left: auto;" class="map-section_nav-item-link" data-industry="${industry.slug}">
             ${industry.title}
           </button>
-          <span style="font-weight: 600;">${industry.city}</span>
         </li>`;
     });
 
