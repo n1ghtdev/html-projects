@@ -83,10 +83,10 @@ body {
 .main__social {
   margin-bottom: 2rem;
   font-size: 1.375rem;
-  font-weight: 100;
   text-transform: uppercase;
 }
 .social__label {
+  font-weight: 100;
   color: #847b73;
 }
 .social__label:after {
