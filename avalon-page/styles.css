@@ -1,0 +1,141 @@
+@font-face {
+  font-family: 'CeraPro';
+  src: url('/fonts/CERAPRO-REGULAR.OTF') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CeraPro';
+  src: url('/fonts/CERAPRO-THIN.OTF') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PlayfairDisplay';
+  src: url('/fonts/PLAYFAIRDISPLAY-REGULAR.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+body {
+  margin: 0;
+  font-family: 'CeraPro', sans-serif;
+  font-size: 16px;
+  height: 100vh;
+  color: #d2c3b6;
+}
+
+.main {
+  height: 100%;
+}
+.main--bg {
+  background-image: url(/img/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+.main__content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+.logotype {
+  margin-bottom: 2rem;
+}
+.main__title {
+  text-align: center;
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 3rem;
+  font-weight: normal;
+  letter-spacing: 0.8rem;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.main__social {
+  margin-bottom: 2rem;
+  font-size: 1.375rem;
+  font-weight: 100;
+  text-transform: uppercase;
+}
+.social__label {
+  color: #847b73;
+}
+.social__label:after {
+  content: ':';
+}
+.tel__list {
+  text-align: center;
+  font-size: 1.5rem;
+}
+.tel__item {
+  margin-bottom: 0.5rem;
+}
+.copyright {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media (min-width: 768px) {
+  .copyright {
+    bottom: 65px;
+  }
+  .main__title {
+    margin-bottom: 4rem;
+    font-size: 3.75rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .copyright {
+    bottom: 80px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .copyright {
+    bottom: 95px;
+  }
+}
+
+@media (max-width: 350px) {
+  .main__title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  html,
+  body {
+    font-size: 14px;
+  }
+}
