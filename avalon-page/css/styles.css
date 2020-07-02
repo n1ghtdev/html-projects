@@ -80,24 +80,25 @@ body {
   text-transform: uppercase;
   margin-bottom: 2rem;
 }
-.main__social {
-  margin-bottom: 2rem;
-  font-size: 1.375rem;
-  text-transform: uppercase;
-}
-.social__label {
-  font-weight: 100;
-  color: #847b73;
-}
-.social__label:after {
-  content: ':';
-}
 .tel__list {
   text-align: center;
   font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 .tel__item {
   margin-bottom: 0.5rem;
+}
+.instagram {
+  display: block;
+}
+.instagram > svg {
+  width: 40px;
+  height: 40px;
+  fill: #d2c3b6;
+  transition: fill 250ms;
+}
+.instagram:hover path {
+  fill: #fff;
 }
 .copyright {
   position: absolute;
@@ -110,8 +111,11 @@ body {
     bottom: 65px;
   }
   .main__title {
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     font-size: 3.75rem;
+  }
+  .tel__list {
+    margin-bottom: 3rem;
   }
 }
 
@@ -130,6 +134,13 @@ body {
 @media (max-width: 350px) {
   .main__title {
     font-size: 2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .main__content {
+    justify-content: flex-start;
+    padding-top: 50px;
   }
 }
 
